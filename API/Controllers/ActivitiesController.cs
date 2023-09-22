@@ -9,7 +9,7 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         public ActivitiesController(DataContext context)
-        {
+        { 
             _context = context;
         }
 
