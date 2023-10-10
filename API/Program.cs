@@ -25,17 +25,21 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using var score = app.Services.CreateScope();
-var services = score.ServiceProvider;
 
 try
 {
+    using var score = app.Services.CreateScope();
+    var services = score.ServiceProvider;
+
     var context = services.GetRequiredService<DataContext>();
     await context.Database.MigrateAsync();
     await Seed.SeedData(context);
 }
 catch (Exception ex)
 {
+    using var score = app.Services.CreateScope();
+    var services = score.ServiceProvider;
+
     var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An error occured during migration");
 }
